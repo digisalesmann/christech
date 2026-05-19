@@ -202,11 +202,4 @@ export default function SustainabilityPage() {
   )
 }
 
-const categoryColor: Record<string, string> = {
-  Logistics: 'text-emerald-400 bg-emerald-600/10 border-emerald-500/20',
-  Packaging: 'text-amber-400 bg-amber-600/10 border-amber-500/20',
-  Products: 'text-purple-400 bg-purple-600/10 border-purple-500/20',
-  Community: 'text-pink-400 bg-pink-600/10 border-pink-500/20',
-  'Supply Chain': 'text-cyan-400 bg-cyan-600/10 border-cyan-500/20',
-  Carbon: 'text-emerald-400 bg-emerald-600/10 border-emerald-500/20',
-}
+const categoryColor: Record<string, string> = {}

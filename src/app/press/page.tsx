@@ -43,8 +43,8 @@ export default function PressPage() {
             <div className="p-6 rounded-2xl border border-emerald-500/20 bg-emerald-600/5">
               <p className="text-xs font-bold tracking-widest uppercase text-emerald-400 mb-3">Press Kit</p>
               <p className="text-sm text-slate-300 mb-4">Download our complete press kit with all brand assets, fact sheets, and approved imagery.</p>
-              <button className="btn-primary py-3 px-6 rounded-xl text-sm shadow-lg shadow-emerald-600/25">
-                <Download className="w-4 h-4" />
+              <button className="btn-primary py-3 px-6 rounded-xl text-sm shadow-lg shadow-emerald-600/25 w-full sm:w-auto whitespace-nowrap">
+                <Download className="w-4 h-4 shrink-0" />
                 Download Press Kit (280 MB)
               </button>
             </div>

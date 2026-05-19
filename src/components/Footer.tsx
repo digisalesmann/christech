@@ -13,7 +13,6 @@ const links = {
   ],
   Company: [
     { label: 'About ChrisTech', href: '/about' },
-    { label: 'Careers', href: '/careers' },
     { label: 'Press', href: '/press' },
     { label: 'Partners', href: '/partners' },
     { label: 'Sustainability', href: '/sustainability' },

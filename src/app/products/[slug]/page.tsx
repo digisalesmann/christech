@@ -104,19 +104,19 @@ export default function ProductPage({ params }: Props) {
   const related = products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4)
 
   return (
-    <div className="min-h-screen bg-navy-900 pt-24">
+    <div className="min-h-screen bg-navy-900 pt-24 overflow-x-hidden">
       {/* Breadcrumb */}
       <div className="section-container pt-8 pb-4">
-        <nav className="flex items-center gap-2 text-sm text-slate-500">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <span>/</span>
-          <Link href="/products" className="hover:text-white transition-colors">Products</Link>
-          <span>/</span>
-          <Link href={`/products?category=${product.category}`} className="hover:text-white transition-colors">
+        <nav className="flex items-center gap-2 text-sm text-slate-500 flex-wrap">
+          <Link href="/" className="hover:text-white transition-colors shrink-0">Home</Link>
+          <span className="shrink-0">/</span>
+          <Link href="/products" className="hover:text-white transition-colors shrink-0">Products</Link>
+          <span className="shrink-0">/</span>
+          <Link href={`/products?category=${product.category}`} className="hover:text-white transition-colors shrink-0">
             {product.categoryLabel}
           </Link>
-          <span>/</span>
-          <span className="text-slate-300">{product.name}</span>
+          <span className="shrink-0">/</span>
+          <span className="text-slate-300 truncate min-w-0">{product.name}</span>
         </nav>
       </div>
 
@@ -139,7 +139,7 @@ export default function ProductPage({ params }: Props) {
 
             {/* Thumbnail strip */}
             {displayImages.length > 1 && (
-              <div className="flex gap-3">
+              <div className="flex gap-3 overflow-x-auto pb-1">
                 {displayImages.map((img, i) => (
                   <button
                     key={i}
@@ -190,7 +190,7 @@ export default function ProductPage({ params }: Props) {
             </div>
 
             {/* Price */}
-            <div className="flex items-center gap-4 mb-6 pb-6 border-b border-white/[0.06]">
+            <div className="flex items-center flex-wrap gap-3 mb-6 pb-6 border-b border-white/[0.06]">
               <span className="text-4xl font-black text-white tracking-tight">{formatPrice(product.price)}</span>
               {product.originalPrice && (
                 <>
@@ -282,16 +282,16 @@ export default function ProductPage({ params }: Props) {
             )}
 
             {/* Trust icons */}
-            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/[0.06]">
+            <div className="grid grid-cols-3 gap-2 pt-6 border-t border-white/[0.06]">
               {[
                 { icon: Shield, label: '2-Year Warranty', sub: 'Full coverage' },
-                { icon: Truck, label: 'Free Shipping', sub: 'On orders over ₦50,000' },
+                { icon: Truck, label: 'Free Shipping', sub: 'Orders over ₦50k' },
                 { icon: RotateCcw, label: '30-Day Returns', sub: 'No questions asked' },
               ].map((item) => (
                 <div key={item.label} className="text-center">
                   <item.icon className="w-5 h-5 text-emerald-400 mx-auto mb-2" />
-                  <p className="text-xs font-semibold text-white">{item.label}</p>
-                  <p className="text-[11px] text-slate-500 mt-0.5">{item.sub}</p>
+                  <p className="text-[11px] sm:text-xs font-semibold text-white leading-tight">{item.label}</p>
+                  <p className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5 leading-tight">{item.sub}</p>
                 </div>
               ))}
             </div>
@@ -339,8 +339,8 @@ export default function ProductPage({ params }: Props) {
                 <div className="divide-y divide-white/[0.06] border border-white/[0.06] rounded-2xl overflow-hidden">
                   {Object.entries(product.specs).map(([key, value], i) => (
                     <div key={key} className={`grid grid-cols-2 ${i % 2 === 0 ? 'bg-white/[0.01]' : ''}`}>
-                      <div className="px-6 py-4 text-sm font-semibold text-slate-400">{key}</div>
-                      <div className="px-6 py-4 text-sm text-white border-l border-white/[0.06]">{value}</div>
+                      <div className="px-4 sm:px-6 py-4 text-sm font-semibold text-slate-400 break-words">{key}</div>
+                      <div className="px-4 sm:px-6 py-4 text-sm text-white border-l border-white/[0.06] break-words min-w-0">{value}</div>
                     </div>
                   ))}
                 </div>

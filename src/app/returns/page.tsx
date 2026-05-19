@@ -77,7 +77,7 @@ export default function ReturnsPage() {
             {[
               { value: '30 Days', label: 'Return Window', sub: 'From date of delivery' },
               { value: '₦0', label: 'Return Shipping', sub: 'Free prepaid label' },
-              { value: '1–2 Days', label: 'Processing Time', sub: 'Once received' },
+              { value: '1-2 Days', label: 'Processing Time', sub: 'Once received' },
             ].map((s) => (
               <div key={s.label} className="px-8 py-8 text-center">
                 <div className="text-3xl font-black text-white tracking-tighter mb-1">{s.value}</div>
