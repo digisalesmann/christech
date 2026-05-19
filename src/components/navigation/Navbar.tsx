@@ -27,6 +27,7 @@ import {
   Home,
   Package,
   LogOut,
+  Star,
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -297,10 +298,11 @@ export default function Navbar() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed inset-y-0 right-0 z-[150] w-full max-w-sm bg-navy-800 border-l border-white/[0.06] overflow-y-auto"
+            className="fixed inset-y-0 right-0 z-[150] w-full max-w-sm bg-navy-900 border-l border-white/[0.06] flex flex-col overflow-hidden"
           >
-            <div className="flex items-center justify-between px-6 py-5 border-b border-white/[0.06]">
-              <span className="text-lg font-bold tracking-tight text-white">Menu</span>
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06] shrink-0">
+              <Image src="/images/logo.png" alt="ChrisTech" width={606} height={442} className="h-8 w-auto object-contain" />
               <button
                 onClick={() => setMobileOpen(false)}
                 className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
@@ -308,37 +310,98 @@ export default function Navbar() {
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <nav className="px-6 py-8 space-y-1">
-              {[
-                { label: 'Home', href: '/' },
-                { label: 'All Products', href: '/products' },
-                { label: 'Deals', href: '/products?filter=deals' },
-                { label: 'New Arrivals', href: '/products?filter=new' },
-                { label: 'Best Sellers', href: '/products?filter=bestseller' },
-                { label: 'Support', href: '/support' },
-              ].map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-3.5 text-slate-300 hover:text-white hover:bg-white/[0.05] rounded-xl text-sm font-medium transition-all duration-150"
-                >
-                  {item.label}
+
+            {/* Auth banner */}
+            {!user ? (
+              <div className="mx-4 mt-4 p-4 rounded-2xl border border-white/[0.08] bg-white/[0.03] shrink-0">
+                <p className="text-sm text-slate-400 mb-3">Sign in to track orders and get personalised deals.</p>
+                <div className="flex gap-2">
+                  <Link
+                    href="/login"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold text-center transition-colors"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/signup"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex-1 py-2.5 rounded-xl border border-white/[0.1] text-slate-300 hover:text-white text-sm font-semibold text-center transition-colors"
+                  >
+                    Register
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <div className="mx-4 mt-4 p-4 rounded-2xl border border-white/[0.08] bg-white/[0.03] flex items-center gap-3 shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center shrink-0">
+                  <span className="text-sm font-black text-white">
+                    {(user.displayName ?? user.email ?? 'U')[0].toUpperCase()}
+                  </span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-white truncate">{user.displayName ?? 'Account'}</p>
+                  <p className="text-xs text-slate-500 truncate">{user.email}</p>
+                </div>
+                <Link href="/account" onClick={() => setMobileOpen(false)} className="text-xs text-emerald-400 font-semibold shrink-0">
+                  View
                 </Link>
-              ))}
-              <hr className="border-white/[0.06] my-4" />
-              <p className="px-4 text-xs font-semibold tracking-widest uppercase text-slate-500 mb-3">Categories</p>
-              {navCategories.map((cat) => (
-                <Link
-                  key={cat.href}
-                  href={cat.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 text-slate-300 hover:text-white hover:bg-white/[0.05] rounded-xl transition-all duration-150"
-                >
-                  <cat.icon className="w-4 h-4 text-emerald-400" />
-                  <span className="text-sm font-medium">{cat.label}</span>
-                </Link>
-              ))}
+              </div>
+            )}
+
+            {/* Scrollable nav */}
+            <nav className="flex-1 overflow-y-auto px-4 py-4">
+              {/* Quick links */}
+              <div className="grid grid-cols-2 gap-2 mb-5">
+                {[
+                  { label: 'All Products', href: '/products', icon: Package },
+                  { label: 'Deals', href: '/products?filter=deals', icon: ShoppingBag },
+                  { label: 'New Arrivals', href: '/products?filter=new', icon: ArrowRight },
+                  { label: 'Best Sellers', href: '/products?filter=bestseller', icon: Star },
+                ].map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-2 px-3 py-3 rounded-xl border border-white/[0.06] bg-white/[0.02] text-slate-300 hover:text-white hover:border-emerald-500/20 hover:bg-emerald-600/5 transition-all text-sm font-medium"
+                  >
+                    <item.icon className="w-4 h-4 text-emerald-400 shrink-0" />
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+
+              {/* Categories */}
+              <p className="px-1 text-[10px] font-bold tracking-widest uppercase text-slate-500 mb-2">Categories</p>
+              <div className="space-y-0.5 mb-5">
+                {navCategories.map((cat) => (
+                  <Link
+                    key={cat.href}
+                    href={cat.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center justify-between px-3 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.05] transition-all group"
+                  >
+                    <div className="flex items-center gap-3">
+                      <cat.icon className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <span className="text-sm font-medium">{cat.label}</span>
+                    </div>
+                    <span className="text-xs text-slate-600">{cat.count.replace(' products', '').replace(' product', '')}</span>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Bottom links */}
+              <div className="border-t border-white/[0.06] pt-4 space-y-0.5">
+                <Link href="/support" onClick={() => setMobileOpen(false)} className="block px-3 py-3 text-sm text-slate-400 hover:text-white hover:bg-white/[0.05] rounded-xl transition-all">Support</Link>
+                {user && (
+                  <button
+                    onClick={() => { logout(); setMobileOpen(false) }}
+                    className="w-full text-left px-3 py-3 text-sm text-red-400/70 hover:text-red-400 hover:bg-white/[0.05] rounded-xl transition-all"
+                  >
+                    Sign Out
+                  </button>
+                )}
+              </div>
             </nav>
           </motion.div>
         )}
